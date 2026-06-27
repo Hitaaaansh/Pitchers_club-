@@ -8,6 +8,7 @@ import { defineConfig } from "@lovable.dev/vite-tanstack-config";
 import viteImagemin from "vite-plugin-imagemin";
 
 export default defineConfig({
+  nitro: true,
   plugins: [
     viteImagemin({
       include: ["src/assets/**"],
