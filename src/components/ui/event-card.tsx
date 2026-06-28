@@ -38,24 +38,24 @@ const EventCard = React.forwardRef<HTMLDivElement, EventCardProps>(
           </div>
 
           {/* Content area on top of background image */}
-          <div className="relative flex flex-col justify-end flex-1 p-5 text-white z-10">
+          <div className="relative flex flex-col justify-end flex-1 p-3 sm:p-5 text-white z-10">
             <div>
-              <div className="inline-flex items-center gap-1.5 rounded-full bg-[#E8A020]/20 border border-[#E8A020]/40 px-2.5 py-0.5 text-[10px] font-bold uppercase tracking-widest text-[#E8A020] mb-3">
-                <Calendar className="h-3 w-3" />
+              <div className="inline-flex items-center gap-1 sm:gap-1.5 rounded-full bg-[#E8A020]/20 border border-[#E8A020]/40 px-1.5 sm:px-2.5 py-0.5 text-[8px] sm:text-[10px] font-bold uppercase tracking-widest text-[#E8A020] mb-2 sm:mb-3">
+                <Calendar className="h-2.5 w-2.5 sm:h-3 sm:w-3" />
                 {date}
               </div>
 
-              <h3 className="text-xl font-display uppercase tracking-tight text-white mb-2 line-clamp-2 leading-snug">
+              <h3 className="text-sm sm:text-xl font-display uppercase tracking-tight text-white mb-1 sm:mb-2 line-clamp-1 sm:line-clamp-2 leading-snug">
                 {title}
               </h3>
-              <p className="text-xs text-white/80 font-sans font-light tracking-wide line-clamp-3 leading-relaxed">
+              <p className="text-[10px] sm:text-xs text-white/80 font-sans font-light tracking-wide line-clamp-2 sm:line-clamp-3 leading-relaxed">
                 {description}
               </p>
             </div>
 
-            <div className="mt-4 flex items-center justify-between bg-white/5 backdrop-blur-md border border-white/10 rounded-lg px-3 py-2 transition-all duration-300 group-hover:bg-white/10">
-              <span className="text-[10px] uppercase tracking-widest font-bold">View Details</span>
-              <ArrowRight className="h-3.5 w-3.5 transform transition-transform duration-300 group-hover:translate-x-1" />
+            <div className="mt-2.5 sm:mt-4 flex items-center justify-between bg-white/5 backdrop-blur-md border border-white/10 rounded-md sm:rounded-lg px-2 sm:px-3 py-1.5 sm:py-2 transition-all duration-300 group-hover:bg-white/10">
+              <span className="text-[8px] sm:text-[10px] uppercase tracking-widest font-bold">View Details</span>
+              <ArrowRight className="h-3 w-3 sm:h-3.5 sm:w-3.5 transform transition-transform duration-300 group-hover:translate-x-1" />
             </div>
           </div>
         </Link>

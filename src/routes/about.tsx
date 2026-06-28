@@ -24,10 +24,10 @@ function About() {
     <SiteLayout>
       <div className="bg-[#0F0F0F] min-h-screen text-[#A0A0A0] font-sans">
         {/* HERO */}
-        <section className="relative overflow-hidden bg-[#0F0F0F] pt-36 pb-24 md:pt-48 md:pb-32 border-b border-[#2A2A2A]">
+        <section className="relative overflow-hidden bg-[#0F0F0F] pt-28 pb-12 md:pt-48 md:pb-32 border-b border-[#2A2A2A]">
           {/* Background image overlay */}
           <div
-            className="absolute inset-0 bg-cover bg-[position:30%_center] opacity-80 brightness-125 pointer-events-none"
+            className="absolute inset-0 bg-[length:140%_auto] sm:bg-cover bg-[position:30%_center] opacity-80 brightness-125 pointer-events-none"
             style={{ backgroundImage: `url(${heroBgImg})` }}
           />
           {/* Dark gradient overlay to ensure text readability */}
@@ -43,9 +43,9 @@ function About() {
                 For students with ideas
               </span>
             </h1>
-            <p className="mt-6 max-w-2xl text-base md:text-lg text-[#A0A0A0] leading-relaxed font-light drop-shadow-[0_2px_8px_rgba(0,0,0,0.9)]">
+            <p className="mt-4 max-w-2xl text-sm sm:text-base md:text-lg text-[#A0A0A0] leading-relaxed font-light drop-shadow-[0_2px_8px_rgba(0,0,0,0.9)]">
               Pitchers Club is the entrepreneurship and event management home of Manipal University
-              Jaipur. We exist to turn campus ideas into impact — through workshops, pitch events,
+              Jaipur. We exist to turn campus ideas into impact through workshops, pitch events,
               ventures, and a community that takes you seriously from day one.
             </p>
           </div>

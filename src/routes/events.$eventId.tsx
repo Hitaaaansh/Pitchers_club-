@@ -105,6 +105,16 @@ function EventDetail() {
   const [form, setForm] = useState({ name: "", regNumber: "", email: "", contact: "" });
   const [customAnswers, setCustomAnswers] = useState<Record<string, string>>({});
   const [lightboxPhoto, setLightboxPhoto] = useState<string | null>(null);
+  const [showStickyBtn, setShowStickyBtn] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      // Show sticky button when scrolled past 250px (below the hero image)
+      setShowStickyBtn(window.scrollY > 250);
+    };
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   const eventImages: Record<string, string> = {
     "Bayaan-2025": pitchImg,
@@ -523,7 +533,7 @@ function EventDetail() {
             </div>
 
             {/* Registration Sidebar */}
-            <aside className="lg:sticky lg:top-28 lg:self-start">
+            <aside id="registration-section" className="lg:sticky lg:top-28 lg:self-start">
               <div className="rounded-2xl border border-[#2A2A2A] bg-[#1A1A1A] p-6 shadow-card">
                 <div className="flex items-center justify-between mb-6">
                   <h3 className="text-2xl font-bold text-white uppercase font-display">Register</h3>
@@ -693,6 +703,19 @@ function EventDetail() {
               ×
             </button>
           </div>
+        </div>
+      )}
+      {showStickyBtn && event.status !== "past" && (
+        <div className="fixed top-20 left-1/2 -translate-x-1/2 z-30 w-[92%] md:hidden animate-fade-in">
+          <button
+            onClick={() => {
+              const el = document.getElementById("registration-section");
+              el?.scrollIntoView({ behavior: "smooth", block: "start" });
+            }}
+            className="w-full rounded-full bg-crimson py-3 text-center text-sm font-semibold text-white shadow-lg border border-white/10 font-display uppercase tracking-wider transition-all duration-300 hover:scale-[1.02]"
+          >
+            Register for Event
+          </button>
         </div>
       )}
     </SiteLayout>

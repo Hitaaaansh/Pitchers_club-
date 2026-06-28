@@ -61,10 +61,10 @@ function TeamPage() {
     <SiteLayout>
       <div className="bg-[#0F0F0F] min-h-screen text-[#A0A0A0] font-sans">
         {/* HERO */}
-        <section className="relative overflow-hidden bg-[#0F0F0F] pt-36 pb-20 md:h-[460px] md:pt-24 md:pb-0 md:flex md:flex-col md:justify-center border-b border-[#2A2A2A]">
+        <section className="relative overflow-hidden bg-[#0F0F0F] pt-28 pb-10 md:h-[460px] md:pt-24 md:pb-0 md:flex md:flex-col md:justify-center border-b border-[#2A2A2A]">
           {/* Background image overlay */}
           <div
-            className="absolute inset-0 bg-cover bg-center pointer-events-none"
+            className="absolute inset-0 bg-[length:140%_auto] sm:bg-cover bg-center pointer-events-none"
             style={{ backgroundImage: `url(${heroBgImg})` }}
           />
           {/* Subtle horizontal gradient overlay to make text highly readable */}
@@ -89,12 +89,12 @@ function TeamPage() {
         <section className="section-pad bg-[#0F0F0F]">
           <div className="mx-auto max-w-7xl px-5">
             {/* Filter Tabs */}
-            <div className="mb-8 flex flex-wrap gap-2">
+            <div className="mb-6 flex flex-wrap gap-1 sm:gap-2">
               {tabs.map((t) => (
                 <button
                   key={t}
                   onClick={() => setFilter(t)}
-                  className={`rounded-full px-5 py-2 text-sm font-semibold uppercase tracking-wider transition-all duration-300 ${
+                  className={`rounded-full px-3 py-1.5 text-xs sm:px-5 sm:py-2 sm:text-sm font-semibold uppercase tracking-wider transition-all duration-300 ${
                     filter === t
                       ? "bg-crimson text-white shadow-[0_0_20px_-3px_rgba(165,0,0,0.5)]"
                       : "border border-[#2A2A2A] bg-[#1A1A1A] text-[#A0A0A0] hover:border-crimson hover:text-white"
@@ -106,7 +106,7 @@ function TeamPage() {
             </div>
 
             {/* Grid */}
-            <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4 justify-items-center">
+            <div className="grid gap-2 sm:gap-6 grid-cols-3 sm:grid-cols-2 lg:grid-cols-4 justify-items-center">
               {sortedTeam.map((m) => (
                 <TeamMemberCard key={m.id} member={m} />
               ))}
@@ -141,7 +141,7 @@ function TeamMemberCard({ member }: { member: TeamMember }) {
 
   return (
     <article
-      className={`relative aspect-[3/4] w-full max-w-[320px] overflow-hidden rounded-2xl border border-[#2A2A2A] bg-[#1A1A1A] transition-all duration-300 cursor-default select-none ${glowClasses}`}
+      className={`relative aspect-[3/4] w-full max-w-[120px] sm:max-w-[320px] overflow-hidden rounded-xl sm:rounded-2xl border border-[#2A2A2A] bg-[#1A1A1A] transition-all duration-300 cursor-default select-none ${glowClasses}`}
       onMouseEnter={() => setIsHover(true)}
       onMouseLeave={() => setIsHover(false)}
     >
@@ -155,7 +155,7 @@ function TeamMemberCard({ member }: { member: TeamMember }) {
         />
       ) : (
         <div
-          className="absolute inset-0 flex items-center justify-center text-6xl font-bold font-display text-white/10 transition-transform duration-500 ease-in-out"
+          className="absolute inset-0 flex items-center justify-center text-2xl sm:text-6xl font-bold font-display text-white/10 transition-transform duration-500 ease-in-out"
           style={{
             background: "linear-gradient(135deg, #3A0505, #0A0A0A)",
             transform: isHover ? "scale(1.05)" : "scale(1)",
@@ -185,15 +185,15 @@ function TeamMemberCard({ member }: { member: TeamMember }) {
       />
 
       {/* Text content container */}
-      <div className="absolute inset-0 flex flex-col justify-end p-5 z-10 pointer-events-none">
-        <motion.div layout transition={{ duration: 0.25, ease: "easeOut" }} className="space-y-1.5">
-          <h3 className="text-xl font-bold text-white uppercase font-display leading-none">
+      <div className="absolute inset-0 flex flex-col justify-end p-2 sm:p-5 z-10 pointer-events-none">
+        <motion.div layout transition={{ duration: 0.25, ease: "easeOut" }} className="space-y-1 sm:space-y-1.5">
+          <h3 className="text-xs sm:text-xl font-bold text-white uppercase font-display leading-none line-clamp-1 sm:line-clamp-none">
             {member.name}
           </h3>
-          <p className="text-xs font-semibold text-crimson uppercase tracking-wider leading-none">
+          <p className="text-[8px] sm:text-xs font-semibold text-crimson uppercase tracking-wider leading-none line-clamp-1 sm:line-clamp-none">
             {member.role}
           </p>
-          <p className="text-[10px] uppercase tracking-widest text-[#666666] leading-none">
+          <p className="text-[7px] sm:text-[10px] uppercase tracking-widest text-[#666666] leading-none line-clamp-1 sm:line-clamp-none">
             {tier === "Club coordinator" ? member.domain : `${member.domain} · ${member.year}`}
           </p>
 
@@ -206,7 +206,7 @@ function TeamMemberCard({ member }: { member: TeamMember }) {
                 : { height: 0, opacity: 0, marginTop: 0 }
             }
             transition={{ duration: 0.25, ease: "easeOut" }}
-            className="overflow-hidden"
+            className="overflow-hidden hidden sm:block"
           >
             <p className="text-xs text-[#A0A0A0] leading-relaxed font-light font-sans">
               {member.bio}

@@ -66,7 +66,7 @@ function ContactPage() {
           <div className="mx-auto grid max-w-6xl gap-10 px-5 lg:grid-cols-2">
             <form
               onSubmit={submit}
-              className="rounded-2xl border border-[#2A2A2A] bg-[#1A1A1A] p-8 shadow-card"
+              className="rounded-2xl border border-[#2A2A2A] bg-[#1A1A1A] p-6 sm:p-8 shadow-card"
             >
               <h2 className="text-3xl font-bold text-white uppercase font-display mb-6">
                 Send a message
@@ -173,7 +173,7 @@ function Info({ icon, title, value, href }: InfoProps) {
         href={href}
         target={href.startsWith("mailto:") ? undefined : "_blank"}
         rel="noreferrer"
-        className="group flex items-start gap-4 rounded-2xl border border-[#2A2A2A] bg-[#1A1A1A] p-5 hover:border-[#A50000]/20 hover:bg-[#222222] transition-all duration-300 cursor-pointer"
+        className="group flex items-start gap-3 sm:gap-4 rounded-2xl border border-[#2A2A2A] bg-[#1A1A1A] p-4 sm:p-5 hover:border-[#A50000]/20 hover:bg-[#222222] transition-all duration-300 cursor-pointer"
       >
         {content}
       </a>
@@ -181,7 +181,7 @@ function Info({ icon, title, value, href }: InfoProps) {
   }
 
   return (
-    <div className="flex items-start gap-4 rounded-2xl border border-[#2A2A2A] bg-[#1A1A1A] p-5 hover:border-[#A50000]/20 transition-all duration-300">
+    <div className="flex items-start gap-3 sm:gap-4 rounded-2xl border border-[#2A2A2A] bg-[#1A1A1A] p-4 sm:p-5 hover:border-[#A50000]/20 transition-all duration-300">
       {content}
     </div>
   );

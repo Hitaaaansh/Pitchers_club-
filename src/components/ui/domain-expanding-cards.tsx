@@ -112,8 +112,8 @@ export default function DomainExpandingCards() {
                   }}
                 />
 
-                {/* Collapsed state — rotated domain name */}
-                <h3 className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 hidden md:block origin-center -rotate-90 text-xl font-bold uppercase tracking-[0.25em] text-[#E8A020] whitespace-nowrap transition-all duration-300 group-data-[active=true]:opacity-0">
+                {/* Collapsed state — domain name */}
+                <h3 className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 origin-center text-sm sm:text-xl font-bold uppercase tracking-[0.25em] text-[#E8A020] whitespace-nowrap transition-all duration-300 group-data-[active=true]:opacity-0 md:-rotate-90">
                   {domain.title}
                 </h3>
 

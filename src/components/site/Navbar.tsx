@@ -16,6 +16,23 @@ export function Navbar() {
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [logoFailed, setLogoFailed] = useState(false);
+  const [visible, setVisible] = useState(true);
+  const [prevScrollPos, setPrevScrollPos] = useState(0);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const currentScrollPos = window.scrollY;
+      // Show navbar if scrolling up, or near top, or if mobile menu is open
+      const isVisible = prevScrollPos > currentScrollPos || currentScrollPos < 10 || open;
+
+      setPrevScrollPos(currentScrollPos);
+      setVisible(isVisible);
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, [prevScrollPos, open]);
+
   const path = useRouterState({ select: (s) => s.location.pathname });
   const isHeroPage =
     path === "/" ||
@@ -32,7 +49,9 @@ export function Navbar() {
 
   return (
     <header
-      className={`fixed top-4 left-1/2 -translate-x-1/2 z-40 w-[92%] max-w-7xl transition-all duration-300 border shadow-[0_8px_32px_-4px_rgba(0,0,0,0.15)] ${
+      className={`fixed left-1/2 -translate-x-1/2 z-40 w-[92%] max-w-7xl transition-all duration-300 border shadow-[0_8px_32px_-4px_rgba(0,0,0,0.15)] ${
+        visible ? "top-4 opacity-100" : "-top-20 opacity-0 pointer-events-none"
+      } ${
         open ? "rounded-[24px]" : "rounded-full"
       } ${
         useWhiteNavbar

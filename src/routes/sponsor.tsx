@@ -111,13 +111,13 @@ function SponsorPage() {
         {/* STATS STRIP */}
         <section className="py-10 bg-transparent border-b border-[#2A2A2A]">
           <div className="mx-auto max-w-7xl px-5">
-            <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-10 lg:gap-0">
+            <div className="grid grid-cols-2 md:grid-cols-3 lg:flex lg:flex-row lg:items-center lg:justify-between gap-6 lg:gap-0">
               {/* Stat 1 */}
-              <div className="flex-1 flex flex-col items-center text-center px-4">
-                <div className="font-display text-5xl sm:text-6xl font-black text-crimson">
+              <div className="flex flex-col items-center text-center px-4">
+                <div className="font-display text-4xl sm:text-5xl lg:text-6xl font-black text-crimson">
                   <AnimatedCounter end={5000} suffix="+" />
                 </div>
-                <div className="mt-2 text-xs font-bold uppercase tracking-widest text-[#666666]">
+                <div className="mt-2 text-[10px] sm:text-xs font-bold uppercase tracking-widest text-[#666666]">
                   Students Reached
                 </div>
               </div>
@@ -125,11 +125,11 @@ function SponsorPage() {
               <div className="hidden lg:block w-px h-12 bg-[#2A2A2A]" />
 
               {/* Stat 2 */}
-              <div className="flex-1 flex flex-col items-center text-center px-4">
-                <div className="font-display text-5xl sm:text-6xl font-black text-white">
+              <div className="flex flex-col items-center text-center px-4">
+                <div className="font-display text-4xl sm:text-5xl lg:text-6xl font-black text-white">
                   <AnimatedCounter end={20} suffix="+" />
                 </div>
-                <div className="mt-2 text-xs font-bold uppercase tracking-widest text-[#666666]">
+                <div className="mt-2 text-[10px] sm:text-xs font-bold uppercase tracking-widest text-[#666666]">
                   Events Delivered
                 </div>
               </div>
@@ -137,11 +137,11 @@ function SponsorPage() {
               <div className="hidden lg:block w-px h-12 bg-[#2A2A2A]" />
 
               {/* Stat 3 */}
-              <div className="flex-1 flex flex-col items-center text-center px-4">
-                <div className="font-display text-5xl sm:text-6xl font-black text-crimson">
+              <div className="flex flex-col items-center text-center px-4">
+                <div className="font-display text-4xl sm:text-5xl lg:text-6xl font-black text-crimson">
                   <AnimatedCounter end={8} suffix="+" />
                 </div>
-                <div className="mt-2 text-xs font-bold uppercase tracking-widest text-[#666666]">
+                <div className="mt-2 text-[10px] sm:text-xs font-bold uppercase tracking-widest text-[#666666]">
                   Brand Partnerships
                 </div>
               </div>
@@ -149,11 +149,11 @@ function SponsorPage() {
               <div className="hidden lg:block w-px h-12 bg-[#2A2A2A]" />
 
               {/* Stat 4 */}
-              <div className="flex-1 flex flex-col items-center text-center px-4">
-                <div className="font-display text-5xl sm:text-6xl font-black text-white">
+              <div className="flex flex-col items-center text-center px-4">
+                <div className="font-display text-4xl sm:text-5xl lg:text-6xl font-black text-white">
                   <AnimatedCounter end={3} suffix="+" />
                 </div>
-                <div className="mt-2 text-xs font-bold uppercase tracking-widest text-[#666666]">
+                <div className="mt-2 text-[10px] sm:text-xs font-bold uppercase tracking-widest text-[#666666]">
                   Years on Campus
                 </div>
               </div>
@@ -161,11 +161,11 @@ function SponsorPage() {
               <div className="hidden lg:block w-px h-12 bg-[#2A2A2A]" />
 
               {/* Stat 5 */}
-              <div className="flex-1 flex flex-col items-center text-center px-4">
-                <div className="font-display text-5xl sm:text-6xl font-black text-crimson">
+              <div className="col-span-2 md:col-span-1 flex flex-col items-center text-center px-4">
+                <div className="font-display text-4xl sm:text-5xl lg:text-6xl font-black text-crimson">
                   <AnimatedCounter end={50} suffix="K+" />
                 </div>
-                <div className="mt-2 text-xs font-bold uppercase tracking-widest text-[#666666]">
+                <div className="mt-2 text-[10px] sm:text-xs font-bold uppercase tracking-widest text-[#666666]">
                   Monthly Social Media Views
                 </div>
               </div>

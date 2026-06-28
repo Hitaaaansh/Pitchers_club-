@@ -149,9 +149,9 @@ function EventsIndex() {
                 </p>
               </div>
             ) : (
-              <div className="mt-6 grid gap-8 grid-cols-1 md:grid-cols-2 lg:grid-cols-3 justify-items-center mb-16">
+              <div className="mt-6 grid gap-2 sm:gap-8 grid-cols-2 md:grid-cols-2 lg:grid-cols-3 justify-items-center mb-16">
                 {upcoming.map((e) => (
-                  <div key={e.id} className="w-full max-w-[320px] h-[450px]">
+                  <div key={e.id} className="w-full max-w-[160px] sm:max-w-[320px] h-[260px] sm:h-[450px]">
                     <EventCard
                       imageUrl={getEventImage(e)}
                       title={e.title}
@@ -176,9 +176,9 @@ function EventsIndex() {
                 </h2>
               </div>
             </div>
-            <div className="mt-6 grid gap-8 grid-cols-1 md:grid-cols-2 lg:grid-cols-3 justify-items-center">
+            <div className="mt-6 grid gap-2 sm:gap-8 grid-cols-2 md:grid-cols-2 lg:grid-cols-3 justify-items-center">
               {past.map((e) => (
-                <div key={e.id} className="w-full max-w-[320px] h-[450px]">
+                <div key={e.id} className="w-full max-w-[160px] sm:max-w-[320px] h-[260px] sm:h-[450px]">
                   <EventCard
                     imageUrl={getEventImage(e)}
                     title={e.title}

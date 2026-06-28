@@ -23,8 +23,18 @@ const STORAGE_KEY = "pitchers_admin_auth";
 function AdminLayout() {
   const [authed, setAuthed] = useState<boolean>(false);
   const [loading, setLoading] = useState<boolean>(true);
+  const [isMobile, setIsMobile] = useState<boolean>(false);
   const path = useRouterState({ select: (s) => s.location.pathname });
   const navigate = useNavigate();
+
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+    checkMobile();
+    window.addEventListener("resize", checkMobile);
+    return () => window.removeEventListener("resize", checkMobile);
+  }, []);
 
   useEffect(() => {
     if (!supabase) {
@@ -60,6 +70,30 @@ function AdminLayout() {
 
   if (!authed) {
     return <Login onSuccess={() => setAuthed(true)} />;
+  }
+
+  if (isMobile) {
+    return (
+      <div className="flex min-h-screen flex-col items-center justify-center bg-[#0F0F0F] p-8 text-center text-white">
+        <div className="max-w-md space-y-4">
+          <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-[#E8A020]/10 text-[#E8A020]">
+            <Lock size={32} />
+          </div>
+          <h2 className="text-2xl font-bold uppercase font-display text-white">
+            Desktop Access Only
+          </h2>
+          <p className="text-sm text-[#A0A0A0] leading-relaxed font-light">
+            Admin panel is optimized for desktop. Please switch to a desktop or laptop for full functionality.
+          </p>
+          <Link
+            to="/"
+            className="inline-block rounded-full bg-crimson px-6 py-2.5 text-sm font-semibold text-cream transition-all duration-300 hover:scale-[1.02] uppercase tracking-wider font-display"
+          >
+            Back to Home
+          </Link>
+        </div>
+      </div>
+    );
   }
 
   const navItems: { to: string; label: string; icon: any; exact?: boolean }[] = [
