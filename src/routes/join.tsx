@@ -85,7 +85,7 @@ function JoinPage() {
         <section className="relative overflow-hidden bg-[#0F0F0F] pt-36 pb-20 md:pt-44 md:pb-24 border-b border-[#2A2A2A]">
           {/* Background image overlay */}
           <div
-            className="absolute inset-0 bg-cover bg-center opacity-80 brightness-125 pointer-events-none"
+            className="absolute inset-0 bg-cover bg-center bg-no-repeat opacity-80 brightness-125 pointer-events-none"
             style={{ backgroundImage: `url(${heroBgImg})` }}
           />
           {/* Dark gradient overlay to ensure text readability */}

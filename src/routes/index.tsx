@@ -116,17 +116,17 @@ function Home() {
               Freshers to founders, everyone is welcome here.
             </p>
 
-            <div className="mt-6 flex flex-wrap justify-center lg:justify-start gap-3">
+            <div className="mt-6 flex flex-nowrap justify-center lg:justify-start gap-2 sm:gap-3">
               <Link
                 to="/join"
-                className="group inline-flex items-center gap-2 rounded-full bg-crimson px-6 py-3 text-sm font-semibold text-cream shadow-card transition-transform hover:-translate-y-0.5"
+                className="group inline-flex items-center gap-1.5 sm:gap-2 rounded-full bg-crimson px-3 sm:px-6 py-2.5 sm:py-3 text-[11px] sm:text-sm font-semibold text-cream shadow-card transition-transform hover:-translate-y-0.5 whitespace-nowrap"
               >
                 Join the club
-                <ArrowRight size={16} className="transition-transform group-hover:translate-x-1" />
+                <ArrowRight className="h-3 w-3 sm:h-4 sm:w-4 transition-transform group-hover:translate-x-1" />
               </Link>
               <Link
                 to="/events"
-                className="inline-flex items-center gap-2 rounded-full border border-cream/40 bg-cream/5 px-6 py-3 text-sm font-semibold text-cream backdrop-blur hover:bg-cream/15"
+                className="inline-flex items-center gap-1.5 sm:gap-2 rounded-full border border-cream/40 bg-cream/5 px-3 sm:px-6 py-2.5 sm:py-3 text-[11px] sm:text-sm font-semibold text-cream backdrop-blur hover:bg-cream/15 whitespace-nowrap"
               >
                 See upcoming events
               </Link>

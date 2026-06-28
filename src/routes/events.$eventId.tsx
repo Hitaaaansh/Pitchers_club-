@@ -1,7 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { SiteLayout } from "@/components/site/SiteLayout";
 import { EVENTS, CustomField, EventDocument } from "@/lib/mock-data";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { verifyPaymentAndRegister } from "@/lib/api/events.functions";
 import {
   Calendar,

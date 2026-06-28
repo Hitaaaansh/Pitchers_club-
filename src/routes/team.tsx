@@ -64,7 +64,7 @@ function TeamPage() {
         <section className="relative overflow-hidden bg-[#0F0F0F] pt-28 pb-10 md:h-[460px] md:pt-24 md:pb-0 md:flex md:flex-col md:justify-center border-b border-[#2A2A2A]">
           {/* Background image overlay */}
           <div
-            className="absolute inset-0 bg-[length:140%_auto] sm:bg-cover bg-center pointer-events-none"
+            className="absolute inset-0 bg-[length:140%_auto] sm:bg-cover bg-center bg-no-repeat pointer-events-none"
             style={{ backgroundImage: `url(${heroBgImg})` }}
           />
           {/* Subtle horizontal gradient overlay to make text highly readable */}
@@ -187,13 +187,13 @@ function TeamMemberCard({ member }: { member: TeamMember }) {
       {/* Text content container */}
       <div className="absolute inset-0 flex flex-col justify-end p-2 sm:p-5 z-10 pointer-events-none">
         <motion.div layout transition={{ duration: 0.25, ease: "easeOut" }} className="space-y-1 sm:space-y-1.5">
-          <h3 className="text-xs sm:text-xl font-bold text-white uppercase font-display leading-none line-clamp-1 sm:line-clamp-none">
+          <h3 className="text-[11px] sm:text-xl font-bold text-white uppercase font-display leading-tight">
             {member.name}
           </h3>
-          <p className="text-[8px] sm:text-xs font-semibold text-crimson uppercase tracking-wider leading-none line-clamp-1 sm:line-clamp-none">
+          <p className="text-[9px] sm:text-xs font-semibold text-crimson uppercase tracking-wider leading-tight">
             {member.role}
           </p>
-          <p className="text-[7px] sm:text-[10px] uppercase tracking-widest text-[#666666] leading-none line-clamp-1 sm:line-clamp-none">
+          <p className="text-[8px] sm:text-[10px] uppercase tracking-widest text-[#666666] leading-tight">
             {tier === "Club coordinator" ? member.domain : `${member.domain} · ${member.year}`}
           </p>
 

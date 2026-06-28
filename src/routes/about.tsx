@@ -27,7 +27,7 @@ function About() {
         <section className="relative overflow-hidden bg-[#0F0F0F] pt-28 pb-12 md:pt-48 md:pb-32 border-b border-[#2A2A2A]">
           {/* Background image overlay */}
           <div
-            className="absolute inset-0 bg-[length:140%_auto] sm:bg-cover bg-[position:30%_center] opacity-80 brightness-125 pointer-events-none"
+            className="absolute inset-0 bg-[length:140%_auto] sm:bg-cover bg-[position:30%_center] bg-no-repeat opacity-80 brightness-125 pointer-events-none"
             style={{ backgroundImage: `url(${heroBgImg})` }}
           />
           {/* Dark gradient overlay to ensure text readability */}

@@ -90,7 +90,7 @@ export default function DomainExpandingCards() {
                 key={domain.id}
                 style={{ flexGrow: activeIndex === index ? 6 : 1 }}
                 className="group relative cursor-pointer overflow-hidden rounded-2xl border border-white/5 transition-[flex-grow,transform] duration-500 ease-out md:min-w-[60px] will-change-[flex-grow,transform]"
-                onMouseEnter={() => setActiveIndex(index)}
+                onMouseEnter={() => isDesktop && setActiveIndex(index)}
                 onClick={() => setActiveIndex(index)}
                 data-active={activeIndex === index}
               >
