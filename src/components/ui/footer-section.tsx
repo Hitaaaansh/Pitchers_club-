@@ -3,6 +3,7 @@ import React from "react";
 import type { ComponentProps, ReactNode } from "react";
 import { motion, useReducedMotion } from "motion/react";
 import { Instagram, Linkedin, MessageCircle, Mail } from "lucide-react";
+import { Link } from "@tanstack/react-router";
 
 interface FooterLink {
   title: string;
@@ -52,12 +53,12 @@ export function Footer() {
           <ul className="space-y-2 text-sm">
             {exploreLinks.map((link) => (
               <li key={link.title}>
-                <a
-                  href={link.href}
+                <Link
+                  to={link.href}
                   className="text-white/80 hover:text-[#E8A020] transition-colors duration-300"
                 >
                   {link.title}
-                </a>
+                </Link>
               </li>
             ))}
           </ul>
@@ -85,14 +86,28 @@ export function Footer() {
         </AnimatedContainer>
       </div>
 
-      <div className="max-w-6xl mx-auto mt-10 pt-6 border-t border-[#2A2A2A] flex items-center justify-between">
+      <div className="max-w-6xl mx-auto mt-10 pt-6 border-t border-[#2A2A2A] flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
         <p className="text-[#666666] text-xs">© 2026 Pitchers Club · Manipal University Jaipur</p>
-        <a
-          href="/admin"
-          className="text-[#444444] text-xs hover:text-[#666666] transition-colors duration-300"
-        >
-          Admin
-        </a>
+        <div className="flex flex-wrap items-center gap-x-6 gap-y-2">
+          <Link
+            to="/privacy"
+            className="text-[#444444] text-xs hover:text-[#666666] transition-colors duration-300"
+          >
+            Privacy Policy
+          </Link>
+          <Link
+            to="/terms"
+            className="text-[#444444] text-xs hover:text-[#666666] transition-colors duration-300"
+          >
+            Terms of Service
+          </Link>
+          <Link
+            to="/admin"
+            className="text-[#444444] text-xs hover:text-[#666666] transition-colors duration-300"
+          >
+            Admin
+          </Link>
+        </div>
       </div>
     </footer>
   );

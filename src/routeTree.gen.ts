@@ -9,8 +9,10 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as TermsRouteImport } from './routes/terms'
 import { Route as TeamRouteImport } from './routes/team'
 import { Route as SponsorRouteImport } from './routes/sponsor'
+import { Route as PrivacyRouteImport } from './routes/privacy'
 import { Route as JoinRouteImport } from './routes/join'
 import { Route as ContactRouteImport } from './routes/contact'
 import { Route as AdminRouteImport } from './routes/admin'
@@ -26,6 +28,11 @@ import { Route as AdminEventsRouteImport } from './routes/admin.events'
 import { Route as AdminContactRouteImport } from './routes/admin.contact'
 import { Route as AdminAnnouncementsRouteImport } from './routes/admin.announcements'
 
+const TermsRoute = TermsRouteImport.update({
+  id: '/terms',
+  path: '/terms',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const TeamRoute = TeamRouteImport.update({
   id: '/team',
   path: '/team',
@@ -34,6 +41,11 @@ const TeamRoute = TeamRouteImport.update({
 const SponsorRoute = SponsorRouteImport.update({
   id: '/sponsor',
   path: '/sponsor',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PrivacyRoute = PrivacyRouteImport.update({
+  id: '/privacy',
+  path: '/privacy',
   getParentRoute: () => rootRouteImport,
 } as any)
 const JoinRoute = JoinRouteImport.update({
@@ -113,8 +125,10 @@ export interface FileRoutesByFullPath {
   '/admin': typeof AdminRouteWithChildren
   '/contact': typeof ContactRoute
   '/join': typeof JoinRoute
+  '/privacy': typeof PrivacyRoute
   '/sponsor': typeof SponsorRoute
   '/team': typeof TeamRoute
+  '/terms': typeof TermsRoute
   '/admin/announcements': typeof AdminAnnouncementsRoute
   '/admin/contact': typeof AdminContactRoute
   '/admin/events': typeof AdminEventsRoute
@@ -130,8 +144,10 @@ export interface FileRoutesByTo {
   '/about': typeof AboutRoute
   '/contact': typeof ContactRoute
   '/join': typeof JoinRoute
+  '/privacy': typeof PrivacyRoute
   '/sponsor': typeof SponsorRoute
   '/team': typeof TeamRoute
+  '/terms': typeof TermsRoute
   '/admin/announcements': typeof AdminAnnouncementsRoute
   '/admin/contact': typeof AdminContactRoute
   '/admin/events': typeof AdminEventsRoute
@@ -149,8 +165,10 @@ export interface FileRoutesById {
   '/admin': typeof AdminRouteWithChildren
   '/contact': typeof ContactRoute
   '/join': typeof JoinRoute
+  '/privacy': typeof PrivacyRoute
   '/sponsor': typeof SponsorRoute
   '/team': typeof TeamRoute
+  '/terms': typeof TermsRoute
   '/admin/announcements': typeof AdminAnnouncementsRoute
   '/admin/contact': typeof AdminContactRoute
   '/admin/events': typeof AdminEventsRoute
@@ -169,8 +187,10 @@ export interface FileRouteTypes {
     | '/admin'
     | '/contact'
     | '/join'
+    | '/privacy'
     | '/sponsor'
     | '/team'
+    | '/terms'
     | '/admin/announcements'
     | '/admin/contact'
     | '/admin/events'
@@ -186,8 +206,10 @@ export interface FileRouteTypes {
     | '/about'
     | '/contact'
     | '/join'
+    | '/privacy'
     | '/sponsor'
     | '/team'
+    | '/terms'
     | '/admin/announcements'
     | '/admin/contact'
     | '/admin/events'
@@ -204,8 +226,10 @@ export interface FileRouteTypes {
     | '/admin'
     | '/contact'
     | '/join'
+    | '/privacy'
     | '/sponsor'
     | '/team'
+    | '/terms'
     | '/admin/announcements'
     | '/admin/contact'
     | '/admin/events'
@@ -223,14 +247,23 @@ export interface RootRouteChildren {
   AdminRoute: typeof AdminRouteWithChildren
   ContactRoute: typeof ContactRoute
   JoinRoute: typeof JoinRoute
+  PrivacyRoute: typeof PrivacyRoute
   SponsorRoute: typeof SponsorRoute
   TeamRoute: typeof TeamRoute
+  TermsRoute: typeof TermsRoute
   EventsEventIdRoute: typeof EventsEventIdRoute
   EventsIndexRoute: typeof EventsIndexRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/terms': {
+      id: '/terms'
+      path: '/terms'
+      fullPath: '/terms'
+      preLoaderRoute: typeof TermsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/team': {
       id: '/team'
       path: '/team'
@@ -243,6 +276,13 @@ declare module '@tanstack/react-router' {
       path: '/sponsor'
       fullPath: '/sponsor'
       preLoaderRoute: typeof SponsorRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/privacy': {
+      id: '/privacy'
+      path: '/privacy'
+      fullPath: '/privacy'
+      preLoaderRoute: typeof PrivacyRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/join': {
@@ -374,8 +414,10 @@ const rootRouteChildren: RootRouteChildren = {
   AdminRoute: AdminRouteWithChildren,
   ContactRoute: ContactRoute,
   JoinRoute: JoinRoute,
+  PrivacyRoute: PrivacyRoute,
   SponsorRoute: SponsorRoute,
   TeamRoute: TeamRoute,
+  TermsRoute: TermsRoute,
   EventsEventIdRoute: EventsEventIdRoute,
   EventsIndexRoute: EventsIndexRoute,
 }
