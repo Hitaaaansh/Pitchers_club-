@@ -31,7 +31,11 @@ const socialLinks: SocialLink[] = [
     href: "https://chat.whatsapp.com/KQjb1khPQbl7ed4104IgUo",
     icon: MessageCircle,
   },
-  { title: "Email", href: "mailto:pitchersmuj@gmail.com", icon: Mail },
+  {
+    title: "Email",
+    href: "https://mail.google.com/mail/?view=cm&fs=1&to=pitchersmuj@gmail.com",
+    icon: Mail,
+  },
 ];
 
 export function Footer() {
@@ -73,7 +77,7 @@ export function Footer() {
               <a
                 key={social.title}
                 href={social.href}
-                target="_blank"
+                target={social.href.startsWith("mailto:") ? undefined : "_blank"}
                 rel="noopener noreferrer"
                 aria-label={social.title}
                 className="flex h-10 w-10 items-center justify-center rounded-full bg-white/5 border border-white/10 text-white/70 hover:bg-[#A50000]/20 hover:border-[#A50000]/30 hover:text-[#E8A020] transition-all duration-300"
@@ -82,7 +86,14 @@ export function Footer() {
               </a>
             ))}
           </div>
-          <p className="text-[#A0A0A0] text-sm">pitchersmuj@gmail.com</p>
+          <a
+            href="https://mail.google.com/mail/?view=cm&fs=1&to=pitchersmuj@gmail.com"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-[#A0A0A0] text-sm hover:text-[#E8A020] transition-colors duration-300 block"
+          >
+            pitchersmuj@gmail.com
+          </a>
         </AnimatedContainer>
       </div>
 
