@@ -6,7 +6,8 @@ import { toast } from "sonner";
 import { MessageCircle } from "lucide-react";
 import { DOMAINS } from "@/lib/mock-data";
 import { db } from "@/lib/db";
-import heroBgImg from "@/assets/img/Untitled design.png";
+import heroBgMobileImg from "@/assets/img/mobile hero/join us hero phone.png";
+import heroBgDesktopImg from "@/assets/img/join us desktop.png";
 
 export const Route = createFileRoute("/join")({
   head: () => ({
@@ -83,10 +84,15 @@ function JoinPage() {
       <div className="bg-[#0F0F0F] min-h-screen text-[#A0A0A0] font-sans">
         {/* HERO */}
         <section className="relative overflow-hidden bg-[#0F0F0F] pt-36 pb-20 md:pt-44 md:pb-24 border-b border-[#2A2A2A]">
-          {/* Background image overlay */}
+          {/* Mobile Background image overlay */}
           <div
-            className="absolute inset-0 bg-cover bg-center bg-no-repeat opacity-80 brightness-125 pointer-events-none"
-            style={{ backgroundImage: `url(${heroBgImg})` }}
+            className="absolute inset-0 bg-cover bg-center bg-no-repeat opacity-80 brightness-125 pointer-events-none md:hidden"
+            style={{ backgroundImage: `url(${heroBgMobileImg})` }}
+          />
+          {/* Desktop Background image overlay */}
+          <div
+            className="absolute inset-0 bg-cover bg-center bg-no-repeat opacity-80 brightness-125 pointer-events-none hidden md:block"
+            style={{ backgroundImage: `url(${heroBgDesktopImg})` }}
           />
           {/* Dark gradient overlay to ensure text readability */}
           <div className="absolute inset-0 bg-gradient-to-t from-[#0F0F0F]/30 via-[#0F0F0F]/20 to-[#0F0F0F]/25 pointer-events-none" />

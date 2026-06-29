@@ -4,7 +4,8 @@ import { DOMAINS } from "@/lib/mock-data";
 import { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { db, TeamMember } from "@/lib/db";
-import heroBgImg from "@/assets/img/team header img.jpg";
+import heroBgDesktopImg from "@/assets/img/team header img.jpg";
+import heroBgMobileImg from "@/assets/img/mobile hero/1.png";
 import { motion } from "motion/react";
 import { ProgressiveBlur } from "@/components/ui/progressive-blur";
 
@@ -62,10 +63,15 @@ function TeamPage() {
       <div className="bg-[#0F0F0F] min-h-screen text-[#A0A0A0] font-sans">
         {/* HERO */}
         <section className="relative overflow-hidden bg-[#0F0F0F] pt-28 pb-10 md:h-[460px] md:pt-24 md:pb-0 md:flex md:flex-col md:justify-center border-b border-[#2A2A2A]">
-          {/* Background image overlay */}
+          {/* Mobile Background image overlay */}
           <div
-            className="absolute inset-0 bg-[length:140%_auto] sm:bg-cover bg-center bg-no-repeat pointer-events-none"
-            style={{ backgroundImage: `url(${heroBgImg})` }}
+            className="absolute inset-0 bg-cover bg-center bg-no-repeat pointer-events-none md:hidden"
+            style={{ backgroundImage: `url(${heroBgMobileImg})` }}
+          />
+          {/* Desktop Background image overlay */}
+          <div
+            className="absolute inset-0 bg-[length:140%_auto] sm:bg-cover bg-center bg-no-repeat pointer-events-none hidden md:block"
+            style={{ backgroundImage: `url(${heroBgDesktopImg})` }}
           />
           {/* Subtle horizontal gradient overlay to make text highly readable */}
           <div className="absolute inset-0 bg-gradient-to-r from-[#0F0F0F]/75 via-[#0F0F0F]/20 to-transparent pointer-events-none" />
@@ -120,6 +126,8 @@ function TeamPage() {
 
 function TeamMemberCard({ member }: { member: TeamMember }) {
   const [isHover, setIsHover] = useState(false);
+  const [isActive, setIsActive] = useState(false);
+  const showDetails = isHover || isActive;
 
   const initials = member.name
     .split(" ")
@@ -141,9 +149,13 @@ function TeamMemberCard({ member }: { member: TeamMember }) {
 
   return (
     <article
-      className={`relative aspect-[3/4] w-full max-w-[120px] sm:max-w-[320px] overflow-hidden rounded-xl sm:rounded-2xl border border-[#2A2A2A] bg-[#1A1A1A] transition-all duration-300 cursor-default select-none ${glowClasses}`}
+      className={`relative aspect-[3/4] w-full max-w-[120px] sm:max-w-[320px] overflow-hidden rounded-xl sm:rounded-2xl border border-[#2A2A2A] bg-[#1A1A1A] transition-all duration-300 cursor-pointer select-none ${glowClasses}`}
+      onClick={() => setIsActive(!isActive)}
       onMouseEnter={() => setIsHover(true)}
-      onMouseLeave={() => setIsHover(false)}
+      onMouseLeave={() => {
+        setIsHover(false);
+        setIsActive(false);
+      }}
     >
       {/* Background (photo or initials gradient) */}
       {photo ? (
@@ -151,14 +163,14 @@ function TeamMemberCard({ member }: { member: TeamMember }) {
           src={photo}
           alt={member.name}
           className="absolute inset-0 h-full w-full object-cover transition-transform duration-500 ease-in-out pointer-events-none"
-          style={{ transform: isHover ? "scale(1.05)" : "scale(1)" }}
+          style={{ transform: showDetails ? "scale(1.05)" : "scale(1)" }}
         />
       ) : (
         <div
           className="absolute inset-0 flex items-center justify-center text-2xl sm:text-6xl font-bold font-display text-white/10 transition-transform duration-500 ease-in-out"
           style={{
             background: "linear-gradient(135deg, #3A0505, #0A0A0A)",
-            transform: isHover ? "scale(1.05)" : "scale(1)",
+            transform: showDetails ? "scale(1.05)" : "scale(1)",
           }}
         >
           {initials}
@@ -170,7 +182,7 @@ function TeamMemberCard({ member }: { member: TeamMember }) {
         className="pointer-events-none absolute bottom-0 left-0 h-[60%] w-full"
         blurLayers={6}
         blurIntensity={1.0}
-        animate={isHover ? "visible" : "hidden"}
+        animate={showDetails ? "visible" : "hidden"}
         variants={{
           hidden: { opacity: 0 },
           visible: { opacity: 1 },
@@ -181,7 +193,7 @@ function TeamMemberCard({ member }: { member: TeamMember }) {
       {/* Backing dark solid transition overlay for text legibility */}
       <div
         className="absolute inset-0 bg-gradient-to-t from-[#0A0A0A]/95 via-[#0A0A0A]/60 to-transparent transition-opacity duration-300 pointer-events-none"
-        style={{ opacity: isHover ? 0.95 : 0.8 }}
+        style={{ opacity: showDetails ? 0.95 : 0.4 }}
       />
 
       {/* Text content container */}
@@ -190,10 +202,14 @@ function TeamMemberCard({ member }: { member: TeamMember }) {
           <h3 className="text-[11px] sm:text-xl font-bold text-white uppercase font-display leading-tight">
             {member.name}
           </h3>
-          <p className="text-[9px] sm:text-xs font-semibold text-crimson uppercase tracking-wider leading-tight">
+          <p className={`text-[9px] sm:text-xs font-extrabold text-crimson uppercase tracking-wider leading-tight transition-all duration-300 ${
+            showDetails ? "block opacity-100" : "hidden sm:block opacity-0 sm:opacity-100"
+          }`}>
             {member.role}
           </p>
-          <p className="text-[8px] sm:text-[10px] uppercase tracking-widest text-[#666666] leading-tight">
+          <p className={`text-[7px] sm:text-[10px] uppercase tracking-widest text-[#666666] leading-tight transition-all duration-300 ${
+            showDetails ? "block opacity-100" : "hidden sm:block opacity-0 sm:opacity-100"
+          }`}>
             {tier === "Club coordinator" ? member.domain : `${member.domain} · ${member.year}`}
           </p>
 
@@ -201,7 +217,7 @@ function TeamMemberCard({ member }: { member: TeamMember }) {
           <motion.div
             initial={{ height: 0, opacity: 0, marginTop: 0 }}
             animate={
-              isHover
+              showDetails
                 ? { height: "auto", opacity: 1, marginTop: 8 }
                 : { height: 0, opacity: 0, marginTop: 0 }
             }

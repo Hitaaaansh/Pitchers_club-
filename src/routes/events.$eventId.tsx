@@ -1,7 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { SiteLayout } from "@/components/site/SiteLayout";
 import { EVENTS, CustomField, EventDocument } from "@/lib/mock-data";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { verifyPaymentAndRegister } from "@/lib/api/events.functions";
 import {
   Calendar,
@@ -105,16 +105,7 @@ function EventDetail() {
   const [form, setForm] = useState({ name: "", regNumber: "", email: "", contact: "" });
   const [customAnswers, setCustomAnswers] = useState<Record<string, string>>({});
   const [lightboxPhoto, setLightboxPhoto] = useState<string | null>(null);
-  const [showStickyBtn, setShowStickyBtn] = useState(false);
 
-  useEffect(() => {
-    const handleScroll = () => {
-      // Show sticky button when scrolled past 250px (below the hero image)
-      setShowStickyBtn(window.scrollY > 250);
-    };
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
 
   const eventImages: Record<string, string> = {
     "Bayaan-2025": pitchImg,
@@ -345,6 +336,17 @@ function EventDetail() {
               <Calendar size={14} className="text-[#E8A020]" />{" "}
               {new Date(event.date).toDateString()}
             </p>
+            {event.status !== "past" && (
+              <button
+                onClick={() => {
+                  const el = document.getElementById("registration-section");
+                  el?.scrollIntoView({ behavior: "smooth", block: "start" });
+                }}
+                className="mt-4 inline-flex w-fit items-center justify-center rounded-full bg-crimson px-5 py-2.5 text-xs font-semibold text-white uppercase tracking-wider transition-all duration-300 hover:scale-[1.02] cursor-pointer"
+              >
+                Register for Event
+              </button>
+            )}
           </div>
         </section>
 
@@ -705,19 +707,7 @@ function EventDetail() {
           </div>
         </div>
       )}
-      {showStickyBtn && event.status !== "past" && (
-        <div className="fixed top-20 left-1/2 -translate-x-1/2 z-30 w-[92%] md:hidden animate-fade-in">
-          <button
-            onClick={() => {
-              const el = document.getElementById("registration-section");
-              el?.scrollIntoView({ behavior: "smooth", block: "start" });
-            }}
-            className="w-full rounded-full bg-crimson py-3 text-center text-sm font-semibold text-white shadow-lg border border-white/10 font-display uppercase tracking-wider transition-all duration-300 hover:scale-[1.02]"
-          >
-            Register for Event
-          </button>
-        </div>
-      )}
+
     </SiteLayout>
   );
 }

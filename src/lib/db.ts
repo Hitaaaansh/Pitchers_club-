@@ -297,7 +297,7 @@ export const db = {
         const { data, error } = await supabase
           .from("events")
           .select(
-            "id, title, description, date, status, registration_type, form_link, cover, rules, schedule, notes, is_paid, problem_statement_locked, custom_fields, amount",
+            "id, title, description, date, status, registration_type, form_link, cover, rules, schedule, notes, is_paid, problem_statement_locked, custom_fields, amount, photos, documents",
           )
           .eq("id", idOrSlug)
           .single();
@@ -314,7 +314,7 @@ export const db = {
           const { data: fullEvent, error: fullError } = await supabase
             .from("events")
             .select(
-              "id, title, description, date, status, registration_type, form_link, cover, rules, schedule, notes, is_paid, problem_statement_locked, custom_fields, amount",
+              "id, title, description, date, status, registration_type, form_link, cover, rules, schedule, notes, is_paid, problem_statement_locked, custom_fields, amount, photos, documents",
             )
             .eq("id", found.id)
             .single();

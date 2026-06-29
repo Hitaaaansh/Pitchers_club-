@@ -8,7 +8,8 @@ import blackoutImg from "@/assets/PROJECT BLACKOUT.png";
 import pitchImg from "@/assets/WhatsApp Image 2025-10-16 at 10.21.56_53d56303.jpg";
 import strtup from "@/assets/img/EMAIL POSTER.png";
 import seminar from "@/assets/img/Busines.png";
-import heroBgImg from "@/assets/img/events header img.png";
+import heroBgDesktopImg from "@/assets/img/events header img.png";
+import heroBgMobileImg from "@/assets/img/mobile hero/3.png";
 
 export const Route = createFileRoute("/events/")({
   head: () => ({
@@ -96,10 +97,15 @@ function EventsIndex() {
       <div className="bg-[#0F0F0F] min-h-screen text-[#A0A0A0] font-sans">
         {/* HERO */}
         <section className="relative overflow-hidden bg-[#0F0F0F] pt-36 pb-20 md:h-[460px] md:pt-24 md:pb-0 md:flex md:flex-col md:justify-center border-b border-[#2A2A2A]">
-          {/* Background image overlay */}
+          {/* Mobile Background image overlay */}
           <div
-            className="absolute inset-0 bg-cover bg-center opacity-80 brightness-125 pointer-events-none"
-            style={{ backgroundImage: `url(${heroBgImg})` }}
+            className="absolute inset-0 bg-cover bg-center bg-no-repeat opacity-80 brightness-125 pointer-events-none md:hidden"
+            style={{ backgroundImage: `url(${heroBgMobileImg})` }}
+          />
+          {/* Desktop Background image overlay */}
+          <div
+            className="absolute inset-0 bg-cover bg-center opacity-80 brightness-125 pointer-events-none hidden md:block"
+            style={{ backgroundImage: `url(${heroBgDesktopImg})` }}
           />
           {/* Dark gradient overlay to ensure text readability */}
           <div className="absolute inset-0 bg-gradient-to-t from-[#0F0F0F]/30 via-[#0F0F0F]/20 to-[#0F0F0F]/25 pointer-events-none" />
