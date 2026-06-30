@@ -1,7 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { SiteLayout } from "@/components/site/SiteLayout";
 import { EVENTS, CustomField, EventDocument } from "@/lib/mock-data";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { verifyPaymentAndRegister } from "@/lib/api/events.functions";
 import {
   Calendar,
@@ -11,6 +11,9 @@ import {
   CreditCard,
   ShieldCheck,
   AlertCircle,
+  ChevronLeft,
+  ChevronRight,
+  X,
 } from "lucide-react";
 import { toast } from "sonner";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
@@ -105,6 +108,36 @@ function EventDetail() {
   const [form, setForm] = useState({ name: "", regNumber: "", email: "", contact: "" });
   const [customAnswers, setCustomAnswers] = useState<Record<string, string>>({});
   const [lightboxPhoto, setLightboxPhoto] = useState<string | null>(null);
+  const [touchStart, setTouchStart] = useState<number | null>(null);
+  const [touchEnd, setTouchEnd] = useState<number | null>(null);
+
+  const photosList = media?.photos || [];
+  const currentIndex = lightboxPhoto ? photosList.indexOf(lightboxPhoto) : -1;
+
+  const showNextPhoto = () => {
+    if (photosList.length > 0 && currentIndex !== -1) {
+      const nextIndex = (currentIndex + 1) % photosList.length;
+      setLightboxPhoto(photosList[nextIndex]);
+    }
+  };
+
+  const showPrevPhoto = () => {
+    if (photosList.length > 0 && currentIndex !== -1) {
+      const prevIndex = (currentIndex - 1 + photosList.length) % photosList.length;
+      setLightboxPhoto(photosList[prevIndex]);
+    }
+  };
+
+  useEffect(() => {
+    if (!lightboxPhoto) return;
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "ArrowRight") showNextPhoto();
+      if (e.key === "ArrowLeft") showPrevPhoto();
+      if (e.key === "Escape") setLightboxPhoto(null);
+    };
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [lightboxPhoto, currentIndex, photosList]);
 
 
   const eventImages: Record<string, string> = {
@@ -317,8 +350,48 @@ function EventDetail() {
     toast.error("Payment cancelled.");
   }
 
+  const schemaMarkup = {
+    "@context": "https://schema.org",
+    "@type": "Event",
+    "name": event.title,
+    "description": event.description,
+    "startDate": event.date,
+    "eventStatus":
+      event.status === "past"
+        ? "https://schema.org/EventPostponed"
+        : "https://schema.org/EventScheduled",
+    "eventAttendanceMode": "https://schema.org/OfflineEventAttendanceMode",
+    "location": {
+      "@type": "Place",
+      "name": "Manipal University Jaipur",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "Manipal University Jaipur, Dehmi Kalan, Off Jaipur-Ajmer Expressway",
+        "addressLocality": "Jaipur",
+        "addressRegion": "Rajasthan",
+        "postalCode": "303007",
+        "addressCountry": "IN",
+      },
+    },
+    ...(event.cover && { image: [event.cover] }),
+    ...(event.isPaid &&
+      event.amount && {
+        offers: {
+          "@type": "Offer",
+          "price": event.amount,
+          "priceCurrency": "INR",
+          "availability": "https://schema.org/InStock",
+          "validFrom": event.date,
+        },
+      }),
+  };
+
   return (
     <SiteLayout>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaMarkup) }}
+      />
       <div className="bg-[#0F0F0F] min-h-screen text-[#A0A0A0] font-sans">
         {/* HERO */}
         <section className="relative pt-36 pb-16 md:pt-44 md:pb-20 border-b border-[#2A2A2A] bg-[#0F0F0F]">
@@ -686,8 +759,32 @@ function EventDetail() {
       {/* LIGHTBOX MODAL */}
       {lightboxPhoto && (
         <div
-          className="fixed inset-0 z-50 flex items-center justify-center bg-[#0F0F0F]/90 p-4 animate-fade-in backdrop-blur-md cursor-pointer"
-          onClick={() => setLightboxPhoto(null)}
+          className="fixed inset-0 z-50 flex items-center justify-center bg-[#0F0F0F]/95 p-4 animate-fade-in backdrop-blur-md cursor-pointer select-none"
+          onClick={() => {
+            // Only close if there was no swipe gesture
+            if (touchStart !== null && touchEnd !== null && Math.abs(touchStart - touchEnd) > 10) {
+              return;
+            }
+            setLightboxPhoto(null);
+          }}
+          onTouchStart={(e) => {
+            setTouchStart(e.targetTouches[0].clientX);
+            setTouchEnd(null);
+          }}
+          onTouchMove={(e) => {
+            setTouchEnd(e.targetTouches[0].clientX);
+          }}
+          onTouchEnd={() => {
+            if (touchStart === null || touchEnd === null) return;
+            const distance = touchStart - touchEnd;
+            const isLeftSwipe = distance > 50;
+            const isRightSwipe = distance < -50;
+            if (isLeftSwipe) {
+              showNextPhoto();
+            } else if (isRightSwipe) {
+              showPrevPhoto();
+            }
+          }}
         >
           <div
             className="relative max-w-4xl max-h-[90vh] overflow-hidden rounded-2xl border border-[#2A2A2A] bg-[#1A1A1A] p-2 shadow-2xl animate-fade-up"
@@ -696,13 +793,38 @@ function EventDetail() {
             <img
               src={lightboxPhoto}
               alt="Enlarged gallery view"
-              className="max-w-full max-h-[80vh] object-contain rounded-lg"
+              className="max-w-full max-h-[80vh] object-contain rounded-lg pointer-events-none"
             />
+            {photosList.length > 1 && (
+              <>
+                <button
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    showPrevPhoto();
+                  }}
+                  className="absolute left-4 top-1/2 -translate-y-1/2 text-white hover:text-crimson bg-[#0F0F0F]/85 hover:bg-[#0F0F0F] p-2.5 rounded-full transition-all duration-300 shadow-lg cursor-pointer"
+                  title="Previous Photo"
+                >
+                  <ChevronLeft size={20} />
+                </button>
+                <button
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    showNextPhoto();
+                  }}
+                  className="absolute right-4 top-1/2 -translate-y-1/2 text-white hover:text-crimson bg-[#0F0F0F]/85 hover:bg-[#0F0F0F] p-2.5 rounded-full transition-all duration-300 shadow-lg cursor-pointer"
+                  title="Next Photo"
+                >
+                  <ChevronRight size={20} />
+                </button>
+              </>
+            )}
             <button
               onClick={() => setLightboxPhoto(null)}
-              className="absolute top-4 right-4 text-white hover:text-crimson bg-[#0F0F0F]/80 p-2 rounded-full transition-colors font-bold text-lg leading-none cursor-pointer"
+              className="absolute top-4 right-4 text-white hover:text-crimson bg-[#0F0F0F]/85 hover:bg-[#0F0F0F] p-2.5 rounded-full transition-all duration-300 shadow-lg cursor-pointer"
+              title="Close"
             >
-              ×
+              <X size={16} />
             </button>
           </div>
         </div>

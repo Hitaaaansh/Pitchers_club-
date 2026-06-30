@@ -731,8 +731,14 @@ function AdminEvents() {
                             disabled={doc.url.startsWith("data:")}
                             className="flex-1 rounded-lg border border-input bg-background px-3 py-1.5 text-xs outline-none focus:border-crimson font-mono"
                           />
-                          <label className="rounded bg-crimson px-3 py-1.5 text-xs font-semibold text-white hover:opacity-90 cursor-pointer text-center whitespace-nowrap">
-                            Upload File
+                          <label
+                            className={`rounded px-3 py-1.5 text-xs font-semibold cursor-pointer text-center whitespace-nowrap transition-colors ${
+                              doc.url
+                                ? "border border-[#2A2A2A] bg-[#2A2A2A]/40 text-white/70 hover:bg-[#2A2A2A]/80 hover:text-white"
+                                : "bg-crimson text-white hover:opacity-90"
+                            }`}
+                          >
+                            {doc.url ? "Replace File" : "Upload File"}
                             <input
                               type="file"
                               className="hidden"
@@ -926,8 +932,14 @@ function AdminEvents() {
                         disabled={photo.startsWith("data:")}
                         className="flex-1 rounded-lg border border-input bg-background px-3 py-1.5 text-xs outline-none focus:border-crimson font-mono"
                       />
-                      <label className="rounded bg-crimson px-3 py-1.5 text-xs font-semibold text-white hover:opacity-90 cursor-pointer text-center whitespace-nowrap">
-                        Upload Image
+                      <label
+                        className={`rounded px-3 py-1.5 text-xs font-semibold cursor-pointer text-center whitespace-nowrap transition-colors ${
+                          photo
+                            ? "border border-[#2A2A2A] bg-[#2A2A2A]/40 text-white/70 hover:bg-[#2A2A2A]/80 hover:text-white"
+                            : "bg-crimson text-white hover:opacity-90"
+                        }`}
+                      >
+                        {photo ? "Replace Image" : "Upload Image"}
                         <input
                           type="file"
                           className="hidden"

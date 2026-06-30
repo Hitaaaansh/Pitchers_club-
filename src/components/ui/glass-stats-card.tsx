@@ -1,5 +1,6 @@
 import React from "react";
 import { Calendar, Users, Handshake, Trophy } from "lucide-react";
+import { Link } from "@tanstack/react-router";
 
 const StatBlock = ({ icon: Icon, value, label }: { icon: any; value: string; label: string }) => (
   <div className="flex flex-col gap-1.5 sm:gap-2 p-3 sm:p-4 rounded-2xl bg-white/5 border border-white/10 backdrop-blur-sm transition-transform hover:-translate-y-1">
@@ -15,17 +16,20 @@ const StatBlock = ({ icon: Icon, value, label }: { icon: any; value: string; lab
 
 export default function GlassStatsCard() {
   return (
-    <div className="animate-fade-in delay-500 relative overflow-hidden rounded-2xl sm:rounded-3xl border border-white/10 bg-white/5 p-4 sm:p-8 backdrop-blur-[26.4px] shadow-2xl">
-      <div className="absolute top-0 right-0 -mr-16 -mt-16 h-64 w-64 rounded-full bg-[#A50000]/10 blur-3xl pointer-events-none" />
+    <Link to="/events" className="block transition-transform hover:scale-[1.01] cursor-pointer">
+      <div className="animate-fade-in delay-500 relative overflow-hidden rounded-2xl sm:rounded-3xl border border-white/10 bg-white/5 p-4 sm:p-8 backdrop-blur-[26.4px] shadow-2xl">
+        <div className="absolute top-0 right-0 -mr-16 -mt-16 h-64 w-64 rounded-full bg-[#A50000]/10 blur-3xl pointer-events-none" />
 
-      <div className="relative z-10">
-        <div className="grid grid-cols-2 gap-3 sm:gap-4">
-          <StatBlock icon={Calendar} value="20+" label="Events Hosted" />
-          <StatBlock icon={Users} value="100+" label="Active Members" />
-          <StatBlock icon={Handshake} value="8+" label="Collaborations" />
-          <StatBlock icon={Trophy} value="3+" label="Years on Campus" />
+        <div className="relative z-10">
+          <div className="grid grid-cols-2 gap-3 sm:gap-4">
+            <StatBlock icon={Calendar} value="20+" label="Events Hosted" />
+            <StatBlock icon={Users} value="100+" label="Active Members" />
+            <StatBlock icon={Handshake} value="8+" label="Collaborations" />
+            <StatBlock icon={Trophy} value="3+" label="Years on Campus" />
+          </div>
         </div>
       </div>
-    </div>
+    </Link>
   );
 }
+
