@@ -1,6 +1,6 @@
 import { createClient } from "@supabase/supabase-js";
 import { EVENTS, ANNOUNCEMENTS, TEAM, EventItem, TeamMember, AnnouncementItem } from "./mock-data";
-import { compressExternalImage } from "./api/image.functions";
+import { compressExternalImage, compressExternalDocument } from "./api/image.functions";
 import { compressDocument } from "./utils";
 
 export type RegistrationItem = {
@@ -239,6 +239,55 @@ async function ensureCompressedSupabaseUrl(
   return cleanedUrl;
 }
 
+async function ensureCompressedDocumentSupabaseUrl(
+  url: string | undefined,
+  uploadFn: (file: File) => Promise<string>,
+): Promise<string> {
+  if (!url) return "";
+  if (!url.startsWith("http://") && !url.startsWith("https://")) return url;
+
+  const supabaseUrl = import.meta.env.VITE_SUPABASE_URL;
+  if (supabaseUrl && url.startsWith(supabaseUrl)) {
+    return url;
+  }
+
+  const cleanedUrl = cleanGoogleDriveUrl(url);
+  if (supabaseUrl && cleanedUrl.startsWith(supabaseUrl)) {
+    return cleanedUrl;
+  }
+
+  if (!supabase) {
+    return cleanedUrl;
+  }
+
+  console.log(`[db.ts] Processing and uploading external document to Supabase: ${cleanedUrl}`);
+  try {
+    const res = await compressExternalDocument({ data: { url: cleanedUrl } });
+    if (res && res.success && res.base64Data) {
+      const response = await fetch(res.base64Data);
+      const blob = await response.blob();
+
+      const fileName = res.fileName || `doc-${Date.now()}`;
+      const file = new File([blob], fileName, { type: res.contentType || blob.type });
+
+      const supabaseUrlResult = await uploadFn(file);
+      console.log(
+        `[db.ts] Successfully processed external document: ${cleanedUrl} -> ${supabaseUrlResult}`,
+      );
+      return supabaseUrlResult;
+    } else {
+      console.error(
+        `[db.ts] Server side document processing failed for ${cleanedUrl}:`,
+        res?.error || "Unknown error",
+      );
+    }
+  } catch (err) {
+    console.error(`[db.ts] Error resolving external document ${cleanedUrl}:`, err);
+  }
+
+  return cleanedUrl;
+}
+
 export const db = {
   // --- Events ---
   async getEvents(): Promise<EventItem[]> {
@@ -374,6 +423,22 @@ export const db = {
       );
     }
 
+    // Process documents if there are any external urls
+    if (event.documents && event.documents.length > 0) {
+      processedEvent.documents = await Promise.all(
+        event.documents.map(async (doc) => {
+          if (doc.url) {
+            const uploadedUrl = await ensureCompressedDocumentSupabaseUrl(
+              doc.url,
+              this.uploadEventDocument.bind(this),
+            );
+            return { ...doc, url: uploadedUrl };
+          }
+          return doc;
+        }),
+      );
+    }
+
     if (supabase) {
       const dbRow = mapEventToDB(processedEvent);
       if (event.id) {
@@ -409,6 +474,7 @@ export const db = {
       rules: processedEvent.rules || [],
       schedule: processedEvent.schedule || [],
       photos: processedEvent.photos || [],
+      documents: processedEvent.documents || [],
     };
 
     const index = list.findIndex((e) => e.id === id);

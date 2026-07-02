@@ -459,7 +459,7 @@ function EventDetail() {
                   <ul className="divide-y divide-[#2A2A2A] rounded-2xl border border-[#2A2A2A] bg-[#1A1A1A] overflow-hidden">
                     {event.schedule.map((s) => (
                       <li key={s.time} className="flex gap-4 px-5 py-4">
-                        <span className="w-20 font-mono text-sm font-bold text-crimson">
+                        <span className="w-20 shrink-0 font-mono text-xs sm:text-sm font-bold text-crimson whitespace-nowrap">
                           {s.time}
                         </span>
                         <span className="text-sm text-[#A0A0A0] font-light">{s.item}</span>

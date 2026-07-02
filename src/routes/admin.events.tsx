@@ -746,6 +746,13 @@ function AdminEvents() {
                               onChange={async (e) => {
                                 const file = e.target.files?.[0];
                                 if (file) {
+                                  if (file.size > 2 * 1024 * 1024) {
+                                    toast.error(
+                                      `"${file.name}" is too large (${(file.size / 1024 / 1024).toFixed(1)}MB). Please upload this document to Google Drive and paste the link instead, or compress the file before uploading.`,
+                                      { duration: 8000 }
+                                    );
+                                    return;
+                                  }
                                   const toastId = toast.loading(
                                     `Uploading "${file.name}" to storage...`,
                                   );

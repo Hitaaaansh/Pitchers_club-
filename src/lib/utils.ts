@@ -143,6 +143,16 @@ export async function compressImage(
  * if they are larger than 150KB and supported by the browser.
  */
 export async function compressDocument(file: File): Promise<{ file: File; isCompressed: boolean }> {
+  const ext = file.name.split(".").pop()?.toLowerCase();
+  const alreadyCompressedExts = ["docx", "doc", "pdf", "zip", "png", "jpg", "jpeg", "webp"];
+
+  if (alreadyCompressedExts.includes(ext || "")) {
+    console.log(
+      `[Document Compression] Skipping gzip compression for "${file.name}" to prevent file corruption and overhead (already compressed format).`,
+    );
+    return { file, isCompressed: false };
+  }
+
   // Only compress files larger than 150KB to avoid overhead on tiny files,
   // and check if CompressionStream is supported in the browser environment.
   if (file.size > 150 * 1024 && typeof CompressionStream !== "undefined") {
