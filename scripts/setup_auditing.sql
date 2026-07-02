@@ -31,6 +31,7 @@ CREATE TABLE IF NOT EXISTS audit.logs (
 ALTER TABLE audit.logs ENABLE ROW LEVEL SECURITY;
 
 -- Allow only authenticated database users (admins/leads) to view logs
+DROP POLICY IF EXISTS "Allow read to authenticated users" ON audit.logs;
 CREATE POLICY "Allow read to authenticated users" 
 ON audit.logs 
 FOR SELECT 
