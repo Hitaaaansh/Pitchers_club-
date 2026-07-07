@@ -93,9 +93,12 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
           "Turning ideas into impact. The entrepreneurship and event management club at MUJ.",
       },
       { property: "og:type", content: "website" },
+      { property: "og:image", content: "https://pitchersmuj.vercel.app/logo.png" },
       { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:image", content: "https://pitchersmuj.vercel.app/logo.png" },
     ],
     links: [
+      { rel: "canonical", href: "https://pitchersmuj.vercel.app" },
       { rel: "icon", href: "/favicon.png", type: "image/png" },
       { rel: "stylesheet", href: appCss },
       { rel: "preconnect", href: "https://fonts.googleapis.com" },

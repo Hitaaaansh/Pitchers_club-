@@ -46,7 +46,26 @@ export const Route = createFileRoute("/events/$eventId")({
   head: ({ loaderData }) => ({
     meta: [
       { title: `${loaderData?.initialEvent?.title ?? "Event"} — Pitchers Club` },
-      { name: "description", content: loaderData?.initialEvent?.description ?? "" },
+      {
+        name: "description",
+        content:
+          loaderData?.initialEvent?.description?.substring(0, 160) ??
+          "Read details about this event by Pitchers Club MUJ.",
+      },
+      {
+        property: "og:image",
+        content: loaderData?.initialEvent?.cover ?? "https://pitchersmuj.vercel.app/logo.png",
+      },
+      {
+        name: "twitter:image",
+        content: loaderData?.initialEvent?.cover ?? "https://pitchersmuj.vercel.app/logo.png",
+      },
+    ],
+    links: [
+      {
+        rel: "canonical",
+        href: `https://pitchersmuj.vercel.app/events/${loaderData?.eventId}`,
+      },
     ],
   }),
   component: EventDetail,
