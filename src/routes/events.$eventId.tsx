@@ -54,17 +54,17 @@ export const Route = createFileRoute("/events/$eventId")({
       },
       {
         property: "og:image",
-        content: loaderData?.initialEvent?.cover ?? "https://pitchersmuj.vercel.app/logo.png",
+        content: loaderData?.initialEvent?.cover ?? "https://www.pitchersmuj.in/logo.png",
       },
       {
         name: "twitter:image",
-        content: loaderData?.initialEvent?.cover ?? "https://pitchersmuj.vercel.app/logo.png",
+        content: loaderData?.initialEvent?.cover ?? "https://www.pitchersmuj.in/logo.png",
       },
     ],
     links: [
       {
         rel: "canonical",
-        href: `https://pitchersmuj.vercel.app/events/${loaderData?.eventId}`,
+        href: `https://www.pitchersmuj.in/events/${loaderData?.eventId}`,
       },
     ],
   }),

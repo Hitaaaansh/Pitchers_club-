@@ -3,4 +3,4 @@ Allow: /
 Disallow: /admin
 Disallow: /admin/*
 
-Sitemap: https://pitchersmuj.vercel.app/sitemap.xml
+Sitemap: https://www.pitchersmuj.in/sitemap.xml

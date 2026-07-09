@@ -2,69 +2,69 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <!-- Core Static Pages -->
   <url>
-    <loc>https://pitchersmuj.vercel.app/</loc>
+    <loc>https://www.pitchersmuj.in/</loc>
     <priority>1.0</priority>
     <changefreq>daily</changefreq>
   </url>
   <url>
-    <loc>https://pitchersmuj.vercel.app/about</loc>
+    <loc>https://www.pitchersmuj.in/about</loc>
     <priority>0.8</priority>
     <changefreq>monthly</changefreq>
   </url>
   <url>
-    <loc>https://pitchersmuj.vercel.app/events</loc>
+    <loc>https://www.pitchersmuj.in/events</loc>
     <priority>0.9</priority>
     <changefreq>daily</changefreq>
   </url>
   <url>
-    <loc>https://pitchersmuj.vercel.app/team</loc>
+    <loc>https://www.pitchersmuj.in/team</loc>
     <priority>0.7</priority>
     <changefreq>monthly</changefreq>
   </url>
   <url>
-    <loc>https://pitchersmuj.vercel.app/join</loc>
+    <loc>https://www.pitchersmuj.in/join</loc>
     <priority>0.8</priority>
     <changefreq>monthly</changefreq>
   </url>
   <url>
-    <loc>https://pitchersmuj.vercel.app/contact</loc>
+    <loc>https://www.pitchersmuj.in/contact</loc>
     <priority>0.7</priority>
     <changefreq>monthly</changefreq>
   </url>
   <url>
-    <loc>https://pitchersmuj.vercel.app/sponsor</loc>
+    <loc>https://www.pitchersmuj.in/sponsor</loc>
     <priority>0.7</priority>
     <changefreq>monthly</changefreq>
   </url>
   <url>
-    <loc>https://pitchersmuj.vercel.app/privacy</loc>
+    <loc>https://www.pitchersmuj.in/privacy</loc>
     <priority>0.3</priority>
     <changefreq>yearly</changefreq>
   </url>
   <url>
-    <loc>https://pitchersmuj.vercel.app/terms</loc>
+    <loc>https://www.pitchersmuj.in/terms</loc>
     <priority>0.3</priority>
     <changefreq>yearly</changefreq>
   </url>
 
   <!-- Dynamic Event Pages (Update these when new events are added to your database) -->
   <url>
-    <loc>https://pitchersmuj.vercel.app/events/founders-pitch-2026</loc>
+    <loc>https://www.pitchersmuj.in/events/founders-pitch-2026</loc>
     <priority>0.8</priority>
     <changefreq>weekly</changefreq>
   </url>
   <url>
-    <loc>https://pitchersmuj.vercel.app/events/ideathon-spring</loc>
+    <loc>https://www.pitchersmuj.in/events/ideathon-spring</loc>
     <priority>0.8</priority>
     <changefreq>weekly</changefreq>
   </url>
   <url>
-    <loc>https://pitchersmuj.vercel.app/events/startup-bazaar</loc>
+    <loc>https://www.pitchersmuj.in/events/startup-bazaar</loc>
     <priority>0.8</priority>
     <changefreq>weekly</changefreq>
   </url>
   <url>
-    <loc>https://pitchersmuj.vercel.app/events/vc-talks-fall</loc>
+    <loc>https://www.pitchersmuj.in/events/vc-talks-fall</loc>
     <priority>0.8</priority>
     <changefreq>weekly</changefreq>
   </url>
