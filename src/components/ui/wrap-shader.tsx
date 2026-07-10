@@ -1,6 +1,7 @@
+import React from "react";
 import { Warp } from "@paper-design/shaders-react";
 
-export default function WarpShaderHero() {
+const WarpShaderHero = React.memo(function WarpShaderHero() {
   return (
     <div className="absolute inset-0">
       <Warp
@@ -21,4 +22,6 @@ export default function WarpShaderHero() {
       />
     </div>
   );
-}
+});
+
+export default WarpShaderHero;

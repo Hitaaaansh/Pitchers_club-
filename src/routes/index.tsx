@@ -76,28 +76,7 @@ function renderTypedText(
   );
 }
 
-function Home() {
-  const { data: events = [] } = useQuery({
-    queryKey: ["events"],
-    queryFn: () => db.getEvents(),
-  });
-
-  const { data: announcements = [] } = useQuery({
-    queryKey: ["announcements"],
-    queryFn: () => db.getAnnouncements(),
-  });
-
-  const { data: team = [] } = useQuery({
-    queryKey: ["team"],
-    queryFn: () => db.getTeam(),
-  });
-
-  const upcoming = [...events]
-    .filter((e) => e.status === "upcoming")
-    .sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime())
-    .slice(0, 3);
-
-  // Typing Transition for the Headline
+function TypewriterHeading() {
   const part1 = "Turning ideas";
   const part2 = "into ";
   const part3 = "impact";
@@ -120,6 +99,47 @@ function Home() {
   const isDone = typingCount >= totalLength;
 
   return (
+    <h1 className="font-display text-5xl sm:text-7xl md:text-8xl leading-[1.1] text-cream [word-spacing:0.12em] drop-shadow-[0_4px_24px_rgba(0,0,0,0.6)]">
+      {renderTypedText(part1, 0, typingCount, totalLength, isDone)}
+      <br />
+      {renderTypedText(part2, part1.length, typingCount, totalLength, isDone)}
+      {renderTypedText(
+        part3,
+        part1.length + part2.length,
+        typingCount,
+        totalLength,
+        isDone,
+        "text-accent"
+      )}
+      {isDone && (
+        <span className="inline-block ml-1.5 w-[3px] h-[0.75em] bg-accent align-middle animate-pulse" />
+      )}
+    </h1>
+  );
+}
+
+function Home() {
+  const { data: events = [] } = useQuery({
+    queryKey: ["events"],
+    queryFn: () => db.getEvents(),
+  });
+
+  const { data: announcements = [] } = useQuery({
+    queryKey: ["announcements"],
+    queryFn: () => db.getAnnouncements(),
+  });
+
+  const { data: team = [] } = useQuery({
+    queryKey: ["team"],
+    queryFn: () => db.getTeam(),
+  });
+
+  const upcoming = [...events]
+    .filter((e) => e.status === "upcoming")
+    .sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime())
+    .slice(0, 3);
+
+  return (
     <SiteLayout>
       {/* HERO */}
       <section className="relative overflow-hidden bg-charcoal text-cream min-h-[80vh] lg:h-screen flex items-center pt-20 md:pt-28 pb-10 md:pb-16">
@@ -137,22 +157,7 @@ function Home() {
             <span className="text-xs sm:text-sm text-white/60 uppercase tracking-widest mb-2">
               MANIPAL UNIVERSITY JAIPUR
             </span>
-            <h1 className="font-display text-5xl sm:text-7xl md:text-8xl leading-[1.1] text-cream [word-spacing:0.12em] drop-shadow-[0_4px_24px_rgba(0,0,0,0.6)]">
-              {renderTypedText(part1, 0, typingCount, totalLength, isDone)}
-              <br />
-              {renderTypedText(part2, part1.length, typingCount, totalLength, isDone)}
-              {renderTypedText(
-                part3,
-                part1.length + part2.length,
-                typingCount,
-                totalLength,
-                isDone,
-                "text-accent"
-              )}
-              {isDone && (
-                <span className="inline-block ml-1.5 w-[3px] h-[0.75em] bg-accent align-middle animate-pulse" />
-              )}
-            </h1>
+            <TypewriterHeading />
 
             <p className="mt-4 max-w-2xl text-sm sm:text-base md:text-lg text-cream/85 drop-shadow-[0_2px_12px_rgba(0,0,0,0.6)]">
               From wild events to real startups, Pitchers has a place for you.
