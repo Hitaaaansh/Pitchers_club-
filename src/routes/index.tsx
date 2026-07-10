@@ -26,8 +26,55 @@ export const Route = createFileRoute("/")({
       },
     ],
   }),
+  loader: async ({ context }) => {
+    const { queryClient } = context;
+    await Promise.all([
+      queryClient.ensureQueryData({
+        queryKey: ["events"],
+        queryFn: () => db.getEvents(),
+      }),
+      queryClient.ensureQueryData({
+        queryKey: ["announcements"],
+        queryFn: () => db.getAnnouncements(),
+      }),
+      queryClient.ensureQueryData({
+        queryKey: ["team"],
+        queryFn: () => db.getTeam(),
+      }),
+    ]);
+  },
   component: Home,
 });
+
+function renderTypedText(
+  text: string,
+  startIndex: number,
+  typingCount: number,
+  totalLength: number,
+  isDone: boolean,
+  className: string = ""
+) {
+  return (
+    <span className={className}>
+      {text.split("").map((char, index) => {
+        const globalIndex = startIndex + index;
+        const isVisible = globalIndex < typingCount;
+        const isLastTyped = globalIndex === typingCount - 1;
+
+        return (
+          <span key={index} className="relative">
+            <span style={{ visibility: isVisible ? "visible" : "hidden" }}>
+              {char}
+            </span>
+            {isLastTyped && !isDone && (
+              <span className="absolute left-[100%] top-[0.15em] ml-0.5 w-[3px] h-[0.75em] bg-accent align-middle animate-pulse" />
+            )}
+          </span>
+        );
+      })}
+    </span>
+  );
+}
 
 function Home() {
   const { data: events = [] } = useQuery({
@@ -54,10 +101,10 @@ function Home() {
   const part1 = "Turning ideas";
   const part2 = "into ";
   const part3 = "impact";
+  const totalLength = part1.length + part2.length + part3.length;
   const [typingCount, setTypingCount] = useState(0);
 
   useEffect(() => {
-    const totalLength = part1.length + part2.length + part3.length;
     const timer = setInterval(() => {
       setTypingCount((prev) => {
         if (prev >= totalLength) {
@@ -68,19 +115,9 @@ function Home() {
       });
     }, 80);
     return () => clearInterval(timer);
-  }, []);
+  }, [totalLength]);
 
-  const showPart1 = part1.substring(0, Math.min(typingCount, part1.length));
-  const showPart2 =
-    typingCount > part1.length
-      ? part2.substring(0, Math.min(typingCount - part1.length, part2.length))
-      : "";
-  const showPart3 =
-    typingCount > part1.length + part2.length
-      ? part3.substring(0, Math.min(typingCount - part1.length - part2.length, part3.length))
-      : "";
-
-  const isDone = typingCount >= part1.length + part2.length + part3.length;
+  const isDone = typingCount >= totalLength;
 
   return (
     <SiteLayout>
@@ -101,14 +138,20 @@ function Home() {
               MANIPAL UNIVERSITY JAIPUR
             </span>
             <h1 className="font-display text-5xl sm:text-7xl md:text-8xl leading-[1.1] text-cream [word-spacing:0.12em] drop-shadow-[0_4px_24px_rgba(0,0,0,0.6)]">
-              {showPart1}
-              {typingCount > part1.length && <br />}
-              {showPart2}
-              <span className="text-accent">{showPart3}</span>
-              <span
-                className={`inline-block ml-1 w-[3px] h-[0.75em] bg-accent align-middle transition-opacity duration-150 ${isDone ? "animate-pulse" : ""}`}
-                style={{ opacity: typingCount > 0 ? 1 : 0 }}
-              />
+              {renderTypedText(part1, 0, typingCount, totalLength, isDone)}
+              <br />
+              {renderTypedText(part2, part1.length, typingCount, totalLength, isDone)}
+              {renderTypedText(
+                part3,
+                part1.length + part2.length,
+                typingCount,
+                totalLength,
+                isDone,
+                "text-accent"
+              )}
+              {isDone && (
+                <span className="inline-block ml-1.5 w-[3px] h-[0.75em] bg-accent align-middle animate-pulse" />
+              )}
             </h1>
 
             <p className="mt-4 max-w-2xl text-sm sm:text-base md:text-lg text-cream/85 drop-shadow-[0_2px_12px_rgba(0,0,0,0.6)]">
